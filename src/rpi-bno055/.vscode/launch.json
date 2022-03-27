@@ -9,7 +9,7 @@
             "program": "~/.dotnet/dotnet",
             "stopAtEntry": false,
             "args": [
-                "/home/ubuntu/${workspaceFolderBasename}/Rpi.dll"
+                "/home/ubuntu/${workspaceFolderBasename}/Bno055.dll"
             ],
             "cwd": "~/${workspaceFolderBasename}",
             "pipeTransport": {

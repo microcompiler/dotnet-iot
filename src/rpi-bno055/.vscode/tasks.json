@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "-r",
+                "linux-arm64",
+                "${workspaceFolder}/Bno055.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                "--no-self-contained"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "deploy",
+            "type": "shell",
+            "dependsOn": "build",
+            "command": "scp",
+            "args": [
+                "-r",
+                "bin/Debug/net6.0/linux-arm64/*",
+                "${config:user}@${config:host}:\"~/${workspaceFolderBasename}\""
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

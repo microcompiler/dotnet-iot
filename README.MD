@@ -1,5 +1,7 @@
 # Visual Studio Code Remote Debug for Raspberry Pi
 
+![Breadboard](/images/rpi-iot.jpg)
+
 ## 1. Install Ubuntu on a Raspberry Pi
 Follow this [tutorial](https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview) to walk you through the process of installing Ubuntu Server on a Raspberry Pi.
 
@@ -35,6 +37,24 @@ ssh-keygen
 
 # Update remote device with authorized keys. Replace with set hostname
 cat ~/.ssh/id_rsa.pub | ssh ubuntu@[hostname] 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'
+
+# Secure the device public we transferred to authorized keys
+chmod 700 .ssh
+touch .ssh/authorized_keys
+chmod 644 .ssh/authorized_keys
+cat id_rsa.pub >> .ssh/authorized_keys
+rm id_rsa.pub
+```
+
+## 4. Enable I2C Permissions
+```bash
+# Create an i2c rules file.
+sudo nano /etc/udev/rules.d/i2c.rules
+```
+Add the following to the new rules file. Then save and reboot.
+
+```text
+ACTION=="add", KERNEL=="i2c-[0-1]*", MODE="0666"
 ```
 
 # Visual Studio Code Remote Debugging for Raspberry Pi
@@ -150,11 +170,39 @@ while (true)
 
 # Tips and Tricks
 
-From a bash prompt on the Raspberry Pi give a self-contained file executable permissin.
+From a bash prompt on the Raspberry Pi give a self-contained file executable permissin
 ```bash
-chmode +x [filename]
+chmod +x [filename]
 ./[filename]
 ```
+
+Write your own I2C scanner
+```csharp
+List<int> validAddress = new List<int>();
+Console.WriteLine("Hello I2C!");
+// First 8 I2C addresses are reserved, last one is 0x7F
+for (int i = 8; i < 0x80; i++)
+{
+    try
+    {
+        I2cDevice i2c = I2cDevice.Create(new I2cConnectionSettings(1, i));
+        var read = i2c.ReadByte();
+        validAddress.Add(i);
+    }
+    catch (IOException)
+    {
+        // Do nothing, there is just no device
+    }
+}
+
+Console.WriteLine($"Found {validAddress.Count} device(s).");
+
+foreach (var valid in validAddress)
+{
+    Console.WriteLine($"Address: 0x{valid:X}");
+}
+```
+
 
 # Helpful Links
 
