@@ -6,7 +6,7 @@ Follow this [tutorial](https://ubuntu.com/tutorials/how-to-install-ubuntu-on-you
 ## 2. Setup device hostname and required software
 ```bash
 # Setup the device hostname
-sudo hostnamectl set-hostname [new-hostname]
+sudo hostnamectl set-hostname [hostname]
 
 # Get updated software for Ubuntu
 sudo apt update
@@ -32,13 +32,12 @@ sudo reboot
 ```bash
 # Use ssh-keygen with default settings to create our SSH key pair and copy to device
 ssh-keygen
-scp .ssh/id_rsa.pub [username]@[hostname]]:
+scp .ssh/id_rsa.pub ubuntu@[hostname]: # Replace with set hostname
 
 # Login to remote device
-ssh [username]@[hostname]
+ssh ubuntu@[hostname] # Replace with set hostname
 
 # Let’s append the public key we transferred to our authorized keys
-mkdir .ssh
 chmod 700 .ssh
 touch .ssh/authorized_keys
 chmod 644 .ssh/authorized_keys
@@ -68,7 +67,7 @@ while (true)
 }
 ```
 
-rpi.csproj
+/rpi.csproj
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
@@ -83,7 +82,7 @@ rpi.csproj
 </Project>
 ```
 
-.vs/tasks.json
+/.vs/tasks.json
 ```json
 {
     "version": "0.2.0",
@@ -104,7 +103,7 @@ rpi.csproj
                 "pipeCwd": "${workspaceRoot}",
                 "pipeProgram": "ssh",
                 "pipeArgs": [
-                    "ubuntu@192.168.1.34"
+                    "ubuntu@[hostname]" // Replace with set hostname
                 ],
                 "debuggerPath": "~/.vsdbg/vsdbg"
             },
@@ -112,16 +111,14 @@ rpi.csproj
                 "~/${workspaceFolderBasename}/": "${workspaceRoot}"
             },
             "logging": {
-                "engineLogging": false,
-                "trace": false,
-                "traceResponse": false
+                "moduleLoad": false
             },
         }
     ]
 }
 ```
 
-.vs/tasks.json
+/.vs/tasks.json
 ```json
 {
     "version": "2.0.0",
@@ -150,7 +147,7 @@ rpi.csproj
                 "-r",
                 "-p",
                 "bin/Debug/net6.0/linux-arm64/*",
-                "ubuntu@192.168.1.34:\"~/${workspaceFolderBasename}\""
+                "ubuntu@[hostname]\"~/${workspaceFolderBasename}\"" // Replace with set hostname
             ],
             "problemMatcher": "$msCompile"
         }

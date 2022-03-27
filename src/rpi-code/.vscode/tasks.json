@@ -5,6 +5,7 @@
             "label": "build",
             "command": "dotnet",
             "type": "process",
+            "dependsOn": "clean",
             "args": [
                 "build",
                 "-r",
@@ -23,9 +24,8 @@
             "command": "scp",
             "args": [
                 "-r",
-                "-p",
                 "bin/Debug/net6.0/linux-arm64/*",
-                "ubuntu@192.168.1.34:\"~/${workspaceFolderBasename}\""
+                "ubuntu@drugo:\"~/${workspaceFolderBasename}\""
             ],
             "problemMatcher": "$msCompile"
         }
