@@ -33,6 +33,7 @@ sudo reboot
 # Use ssh-keygen with default settings to create our SSH key pair and copy to device
 ssh-keygen
 cat ~/.ssh/id_rsa.pub | ssh ubuntu@[hostname] 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys' # Replace with set hostname
+```
 
 # Visual Studio Code Remote Debugging for Raspberry Pi
 Create the following NET6.0 Linux Arm64 project
