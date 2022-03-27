@@ -30,7 +30,7 @@ sudo reboot
 
 ## 3. Enable SSH key authentication on the Raspberry Pi
 ```bash
-# Use ssh-keygen with default settings to create our SSH key pair and copy to device
+# Use ssh-keygen on developemnt workstaton to create our SSH key pair and copy to device
 ssh-keygen
 
 # Update remote device with authorized keys. Replace with set hostname
@@ -40,7 +40,7 @@ cat ~/.ssh/id_rsa.pub | ssh ubuntu@[hostname] 'mkdir -p ~/.ssh && cat >> ~/.ssh/
 # Visual Studio Code Remote Debugging for Raspberry Pi
 Create the following NET6.0 Linux Arm64 project
 
-program.cs
+/program.cs
 ```csharp
 using System.Device.Gpio;
 
