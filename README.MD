@@ -32,17 +32,7 @@ sudo reboot
 ```bash
 # Use ssh-keygen with default settings to create our SSH key pair and copy to device
 ssh-keygen
-scp .ssh/id_rsa.pub ubuntu@[hostname]: # Replace with set hostname
-
-# Login to remote device
-ssh ubuntu@[hostname] # Replace with set hostname
-
-# Let’s append the public key we transferred to our authorized keys
-chmod 700 .ssh
-touch .ssh/authorized_keys
-chmod 644 .ssh/authorized_keys
-cat id_rsa.pub >> .ssh/authorized_keys
-```
+cat ~/.ssh/id_rsa.pub | ssh ubuntu@[hostname] 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys' # Replace with set hostname
 
 # Visual Studio Code Remote Debugging for Raspberry Pi
 Create the following NET6.0 Linux Arm64 project
@@ -155,10 +145,20 @@ while (true)
 }
 ```
 
+# Tips and Tricks
+
+From a bash prompt on the Raspberry Pi give a self-contained file executable permissin.
+```bash
+chmode +x [filename]
+./[filename]
+```
+
 # Helpful Links
+
 - [https://code.visualstudio.com/docs/remote/ssh](https://code.visualstudio.com/docs/remote/ssh)
 - [https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md](https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md)
 - [https://www.petecodes.co.uk/deploying-and-debugging-raspberry-pi-net-applications-using-vs-code/](https://www.petecodes.co.uk/deploying-and-debugging-raspberry-pi-net-applications-using-vs-code/)
+- [https://www.raspberrypi.com/documentation/computers/remote-access.html](https://www.raspberrypi.com/documentation/computers/remote-access.html)
 
 # Give a Star! :star:
 

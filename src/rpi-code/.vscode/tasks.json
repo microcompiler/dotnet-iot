@@ -5,7 +5,6 @@
             "label": "build",
             "command": "dotnet",
             "type": "process",
-            "dependsOn": "clean",
             "args": [
                 "build",
                 "-r",
@@ -25,7 +24,7 @@
             "args": [
                 "-r",
                 "bin/Debug/net6.0/linux-arm64/*",
-                "ubuntu@drugo:\"~/${workspaceFolderBasename}\""
+                "${config:user}@${config:host}:\"~/${workspaceFolderBasename}\""
             ],
             "problemMatcher": "$msCompile"
         }

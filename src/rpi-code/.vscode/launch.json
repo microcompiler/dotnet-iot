@@ -17,7 +17,7 @@
                 "pipeCwd": "${workspaceRoot}",
                 "pipeProgram": "ssh",
                 "pipeArgs": [
-                    "ubuntu@drugo"
+                    "${config:user}@${config:host}"
                 ],
                 "debuggerPath": "~/.vsdbg/vsdbg"
             },
